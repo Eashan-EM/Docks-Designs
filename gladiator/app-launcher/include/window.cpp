@@ -28,7 +28,9 @@ void MainWindow::setup_app_data() {
 
 void MainWindow::build_ui() {
     leftDrawingArea = Gtk::manage(new Gtk::DrawingArea());
-    revealer = Gtk::manage(new AppsRevealer(appData));
+    revealer = Gtk::manage(new AppsRevealer(&appData));
+    appData.revealer = revealer;
+
     Gtk::Box *revealerHolder = Gtk::manage(new Gtk::Box(Gtk::Orientation::VERTICAL, 0));
     revealerHolder->set_name("revealerHolder");
     revealerHolder->append(*revealer);
@@ -69,7 +71,7 @@ void MainWindow::set_css_style(string pathToCssFile) {
 void MainWindow::on_left_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width, int height) {
     if (!revealer->get_reveal_child())
         return;
-        
+
     cr->set_source_rgb(0.0549, 0.0667, 0.0667);
 
     double radius = appData.screenSize.get_width()*(WIN_WIDTH_NORM-REVEAL_WIDTH_MAX_NORM)/2;

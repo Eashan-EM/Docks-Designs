@@ -14,5 +14,6 @@ struct AppData {
     Gdk::Rectangle screenSize;
     
     Gtk::Window *window;
+    Gtk::Revealer *revealer;
     int selectedApp;
 };

@@ -1,7 +1,7 @@
 #include <apps-revealer.hpp>
 #include <regex>
 
-AppsHolder::AppsHolder(AppData aD): Gtk::Box(Gtk::Orientation::VERTICAL, 20) {
+AppsHolder::AppsHolder(AppData *aD): Gtk::Box(Gtk::Orientation::VERTICAL, 20) {
     appData = aD;
     add_apps();    
 }
@@ -45,7 +45,7 @@ void AppsHolder::show_apps() {
         wid->add_css_class("notSelectedApp");
         append(*wid);
     }
-    appData.selectedApp = 0;
+    appData->selectedApp = 0;
 }
 
 bool case_insensitive_partial_match(const std::string& main_string, const std::string& search)
@@ -81,7 +81,7 @@ void AppsHolder::filter_apps(std::string app) {
         if (wid->get_visible() && !found) {
             wid->remove_css_class("notSelectedApp");
             wid->set_name("selectedApp");
-            appData.selectedApp = i;
+            appData->selectedApp = i;
             found = true;
         }
     }
@@ -94,17 +94,17 @@ bool AppsHolder::match_app(Desktop desktop, std::string app) {
 }
 
 void AppsHolder::run_app() {
-    apps[appData.selectedApp].desktopEntryGroup.execute_app();
+    apps[appData->selectedApp].desktopEntryGroup.execute_app();
 }
 
 void AppsHolder::on_app_hover_start(double x, double y, int appId) {
     if (appId<showableApps.size()) {
-        if (appData.selectedApp<showableApps.size()) {
-            showableApps[appData.selectedApp]->set_name("notSelected");
-            showableApps[appData.selectedApp]->add_css_class("notSelectedApp");
+        if (appData->selectedApp<showableApps.size()) {
+            showableApps[appData->selectedApp]->set_name("notSelected");
+            showableApps[appData->selectedApp]->add_css_class("notSelectedApp");
         }
         showableApps[appId]->remove_css_class("notSelectedApp");
         showableApps[appId]->set_name("selectedApp");
-        appData.selectedApp = appId;
+        appData->selectedApp = appId;
     }
 }
