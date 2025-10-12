@@ -1,0 +1,60 @@
+@define-color WIN_BG_CLR #0e1111;
+@define-color INFO_CLR   #0e1111;
+@define-color APPS_HOLDER_CLR #0e1111;
+@define-color APP_CLR #0e1111;
+@define-color SEARCH_BAR_CLR #23222b;
+@define-color SELECTED_APP #23222b;
+
+window {
+    background-color: transparent;
+}
+
+#revealerHolder {
+    background-color: @WIN_BG_CLR;
+    border-radius: 20px 20px 0px 0px;
+    margin: 0px;
+}
+
+.infoHolder {
+    margin: 10px;
+    padding: 10px;
+    min-height: 100px;
+    border-radius: 20px;
+    background-color: @INFO_CLR;
+}
+
+scrolledwindow {
+    background-color: @APPS_HOLDER_CLR;
+    margin-bottom: 10px;
+}
+
+.appHolderBox {}
+
+#selectedApp {
+    background-color: @SELECTED_APP;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.notSelectedApp {
+    background-color: @APP_CLR;
+    padding: 10px;
+}
+
+.appName {
+    font-family: "Monospace";
+    color: white;
+    font-size: larger;
+}
+
+.appsSearcher {
+    color: white;
+    background-color: @SEARCH_BAR_CLR;
+    font-family: "Monospace";
+    font-size: larger;
+    min-height: 20px;
+    border-radius: 20px;
+    border: none;
+    padding: 10px;
+    outline: none;
+}
