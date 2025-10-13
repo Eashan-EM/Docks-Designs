@@ -2,6 +2,9 @@
 #include <apps-revealer.hpp>
 #include <gtkmm.h>
 
+void show_apps(int);
+void hide_apps(int);
+
 class MainWindow: public Gtk::Window {
     Gtk::DrawingArea *leftDrawingArea;
     AppsRevealer *revealer;
@@ -15,5 +18,8 @@ class MainWindow: public Gtk::Window {
         void set_css_style(std::string);
         void on_left_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width, int height);
         void on_right_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width, int height);
+
+        friend void show_apps(int);
+        friend void hide_apps(int);
 };
 

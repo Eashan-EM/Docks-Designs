@@ -1,10 +1,27 @@
 #include <gtk4-layer-shell.h>
 #include <window.hpp>
 #include <iostream>
+#include <csignal>
 
 using namespace std;
 
+static MainWindow *window= NULL;
+
+void show_apps(int n) {
+    if (window)
+        window->revealer->set_reveal_child(true);
+}
+
+void hide_apps(int n) {
+    if (window)
+        window->revealer->set_reveal_child(false);
+}
+
 MainWindow::MainWindow() {
+    window = this;
+    std::signal(SIGUSR1, show_apps);
+    std::signal(SIGUSR2, hide_apps);
+
     setup_app_data();
     gtk_layer_init_for_window(this->gobj());
     gtk_layer_set_anchor(this->gobj(), GTK_LAYER_SHELL_EDGE_BOTTOM, true);
@@ -117,3 +134,4 @@ void MainWindow::on_right_draw(const Cairo::RefPtr<Cairo::Context>& cr, int widt
 
     cr->fill();
 }
+
