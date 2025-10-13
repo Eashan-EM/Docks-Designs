@@ -1,8 +1,6 @@
 #include <iostream>
 #include <gtkmm.h>
 
-using namespace std;
-
 #define WIN_HEIGHT_NORM 0.01
 #define WIN_HEIGHT_MAX_NORM 0.50
 #define WIN_WIDTH_NORM 0.35
@@ -10,7 +8,7 @@ using namespace std;
 #define REVEAL_WIDTH_MAX_NORM 0.28
 
 struct AppData {
-    string homeDir;
+    std::string homeDir;
     Gdk::Rectangle screenSize;
     
     Gtk::Window *window;

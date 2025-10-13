@@ -1,7 +1,8 @@
 #include <apps-revealer.hpp>
 #include <regex>
 
-AppsHolder::AppsHolder(AppData *aD): Gtk::Box(Gtk::Orientation::VERTICAL, 20) {
+AppsHolder::AppsHolder(AppData *aD, AppsRevealer *reveal): Gtk::Box(Gtk::Orientation::VERTICAL, 20) {
+    appsRevealer = reveal;
     appData = aD;
     add_apps();    
 }
@@ -17,6 +18,7 @@ void AppsHolder::add_apps() {
     
     for (Desktop app: apps) {
         auto hoverMotion = Gtk::EventControllerMotion::create();
+        auto clickMotion = Gtk::GestureClick::create();
         showableApps.push_back(Gtk::manage(new Gtk::Box(Gtk::Orientation::VERTICAL)));
         length = showableApps.size();
         appHolder = showableApps[length-1];
@@ -26,8 +28,10 @@ void AppsHolder::add_apps() {
         appIconName->append(*(appName = Gtk::manage(new Gtk::Label(app.desktopEntryGroup.Name()))));
 
         appHolder->add_controller(hoverMotion);
+        appHolder->add_controller(clickMotion);
         
         hoverMotion->signal_enter().connect(sigc::bind(sigc::mem_fun(*this, &AppsHolder::on_app_hover_start), length-1));
+        clickMotion->signal_pressed().connect(sigc::mem_fun(*this, &AppsHolder::on_app_click));
         appHolder->set_vexpand(false);
         appHolder->set_hexpand(true);
         appIcon->set_icon_size(Gtk::IconSize::LARGE);
@@ -107,4 +111,12 @@ void AppsHolder::on_app_hover_start(double x, double y, int appId) {
         showableApps[appId]->set_name("selectedApp");
         appData->selectedApp = appId;
     }
+}
+
+void AppsHolder::on_app_click(int w, double x, double y) {
+    run_app();
+    appsRevealer->clear_search_entry();
+    if (appData->revealer)
+        appData->revealer->set_reveal_child(false);
+
 }

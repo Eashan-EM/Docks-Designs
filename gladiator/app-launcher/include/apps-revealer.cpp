@@ -26,6 +26,14 @@ AppsSearcher::AppsSearcher(AppData *appData, AppsHolder &appsHolder) {
 
 void AppsSearcher::on_activate() {
     // Catches the Enter Key event
+    run_app();    appsHolder->run_app();
+    set_text("");
+    if (appData->revealer)
+        appData->revealer->set_reveal_child(false);
+
+}
+
+void AppsSearcher::run_app() {
     appsHolder->run_app();
     set_text("");
     if (appData->revealer)
@@ -68,7 +76,7 @@ AppsRevealer::AppsRevealer(AppData *appData): appData(appData) {
     hoverMotion->signal_enter().connect(sigc::mem_fun(*this, &AppsRevealer::on_hover_start));
     hoverMotion->signal_leave().connect(sigc::mem_fun(*this, &AppsRevealer::on_hover_stop));
 
-    AppsHolder *appsHolder = Gtk::manage(new AppsHolder(appData));
+    AppsHolder *appsHolder = Gtk::manage(new AppsHolder(appData, this));
     appsScroller = Gtk::manage(new AppsScroller(appData, *appsHolder));
     appsSearcher = Gtk::manage(new AppsSearcher(appData, *appsHolder));
     infoHolder = Gtk::manage(new Gtk::Box(Gtk::Orientation::VERTICAL, 0));
@@ -87,4 +95,8 @@ void AppsRevealer::on_hover_start(double x, double y) {
 
 void AppsRevealer::on_hover_stop() {
     set_reveal_child(false);
+}
+
+void AppsRevealer::clear_search_entry() {
+    appsSearcher->set_text("");
 }
