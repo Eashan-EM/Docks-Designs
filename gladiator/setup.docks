@@ -1,0 +1,3 @@
+[app_launcher]
+START_SIGNAL=true
+STOP_SIGNAL=true
