@@ -1,3 +1,4 @@
 [app_launcher]
+EXEC=/home/em/Desktop/code/Docks/designs/gladiator/app-launcher/build/app_launcher
 START_SIGNAL=true
 STOP_SIGNAL=true
