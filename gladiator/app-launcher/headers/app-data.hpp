@@ -7,11 +7,13 @@
 #define REVEAL_HEIGHT_NORM 0.01
 #define REVEAL_WIDTH_MAX_NORM 0.28
 
+class AppsRevealer;
+
 struct AppData {
     std::string homeDir;
     Gdk::Rectangle screenSize;
     
     Gtk::Window *window;
-    Gtk::Revealer *revealer;
+    AppsRevealer *revealer;
     int selectedApp;
 };

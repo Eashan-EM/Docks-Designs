@@ -9,12 +9,12 @@ static MainWindow *window= NULL;
 
 void show_apps(int n) {
     if (window)
-        window->revealer->set_reveal_child(true);
+        window->revealer->show_apps();
 }
 
 void hide_apps(int n) {
     if (window)
-        window->revealer->set_reveal_child(false);
+        window->revealer->hide_apps();
 }
 
 MainWindow::MainWindow() {
@@ -26,7 +26,6 @@ MainWindow::MainWindow() {
     gtk_layer_init_for_window(this->gobj());
     gtk_layer_set_anchor(this->gobj(), GTK_LAYER_SHELL_EDGE_BOTTOM, true);
     set_default_size(WIN_WIDTH_NORM*appData.screenSize.get_width(), WIN_HEIGHT_NORM*appData.screenSize.get_height());
-    gtk_layer_set_keyboard_mode(this->gobj(), GTK_LAYER_SHELL_KEYBOARD_MODE_ON_DEMAND);
 
     string cssPathFile = appData.homeDir+"style.css";
     set_css_style(cssPathFile);

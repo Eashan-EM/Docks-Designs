@@ -1,6 +1,7 @@
 #include <apps-revealer.hpp>
 #include <gtkmm/box.h>
 #include <iostream>
+#include <gtk4-layer-shell.h>
 
 AppsSearcher::AppsSearcher(AppData *appData, AppsHolder &appsHolder) {
     this->appData = appData;
@@ -29,7 +30,7 @@ void AppsSearcher::on_activate() {
     run_app();    appsHolder->run_app();
     set_text("");
     if (appData->revealer)
-        appData->revealer->set_reveal_child(false);
+        appData->revealer->hide_apps();
 
 }
 
@@ -37,7 +38,7 @@ void AppsSearcher::run_app() {
     appsHolder->run_app();
     set_text("");
     if (appData->revealer)
-        appData->revealer->set_reveal_child(false);
+        appData->revealer->hide_apps();
 }
 
 bool AppsSearcher::on_key_press(guint keyval, guint keycode, Gdk::ModifierType state) {
@@ -90,13 +91,25 @@ AppsRevealer::AppsRevealer(AppData *appData): appData(appData) {
 }
 
 void AppsRevealer::on_hover_start(double x, double y) {
-    set_reveal_child(true);
+    show_apps();
 }
 
 void AppsRevealer::on_hover_stop() {
-    set_reveal_child(false);
+    hide_apps();
 }
 
 void AppsRevealer::clear_search_entry() {
     appsSearcher->set_text("");
+}
+
+void AppsRevealer::show_apps() {
+    set_reveal_child(true);
+
+    gtk_layer_set_keyboard_mode(appData->window->gobj(), GTK_LAYER_SHELL_KEYBOARD_MODE_EXCLUSIVE);
+}
+
+void AppsRevealer::hide_apps() {
+    set_reveal_child(false);
+    
+    gtk_layer_set_keyboard_mode(appData->window->gobj(), GTK_LAYER_SHELL_KEYBOARD_MODE_NONE);
 }

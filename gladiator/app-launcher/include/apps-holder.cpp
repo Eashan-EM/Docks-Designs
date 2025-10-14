@@ -117,6 +117,6 @@ void AppsHolder::on_app_click(int w, double x, double y) {
     run_app();
     appsRevealer->clear_search_entry();
     if (appData->revealer)
-        appData->revealer->set_reveal_child(false);
+        appData->revealer->hide_apps();
 
 }

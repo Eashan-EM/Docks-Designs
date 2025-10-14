@@ -56,6 +56,8 @@ class AppsRevealer: public Gtk::Revealer {
         void on_hover_start(double, double);
         void on_hover_stop();
         void clear_search_entry();
+        void show_apps();
+        void hide_apps();
 };
 
 bool case_insensitive_partial_match(const std::string&, const std::string&);
