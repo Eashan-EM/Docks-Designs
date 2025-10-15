@@ -27,11 +27,7 @@ AppsSearcher::AppsSearcher(AppData *appData, AppsHolder &appsHolder) {
 
 void AppsSearcher::on_activate() {
     // Catches the Enter Key event
-    run_app();    appsHolder->run_app();
-    set_text("");
-    if (appData->revealer)
-        appData->revealer->hide_apps();
-
+    run_app();
 }
 
 void AppsSearcher::run_app() {
