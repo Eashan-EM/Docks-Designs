@@ -1,0 +1,43 @@
+@define-color MAIN_BOX_BACK #0e1111;
+@define-color CONT_BACK_CLR #23222b;
+@define-color FONT_CLR      #ffffff;
+
+window {
+    background-color: transparent;
+}
+
+#topComponent {
+}
+
+#time {
+    font-size: 20px;
+    border-radius: 8px 8px 0px 0px;
+}
+
+#date {
+    font-size: 13px;
+    border-radius: 0px;
+}
+
+#dateNum {
+    font-size: 20px;
+    border-radius: 0px 0px 8px 8px;
+}
+
+.dateNTime {
+    font-family: "Monospace";
+    padding: 3px 8px;
+    margin: 0px 2px;
+    color: @FONT_CLR;
+    background-color: @CONT_BACK_CLR;
+}
+
+#middleComponent {
+}
+
+#bottomComponent {
+}
+
+#mainBox {
+    background-color: @MAIN_BOX_BACK;
+}

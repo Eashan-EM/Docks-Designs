@@ -114,7 +114,7 @@ void AppsHolder::on_app_hover_start(double x, double y, int appId) {
 }
 
 void AppsHolder::on_app_click(int w, double x, double y) {
-    run_app();
+    run_app();Catppuccin for VSCode
     appsRevealer->clear_search_entry();
     if (appData->revealer)
         appData->revealer->hide_apps();
